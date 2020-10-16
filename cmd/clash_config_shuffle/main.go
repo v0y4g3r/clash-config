@@ -51,9 +51,9 @@ func main() {
 		}
 	}
 
-	if err != nil {
-		log.Fatalf("error: %v", err)
-	}
 	d, _ := yaml.Marshal(&c)
-	ioutil.WriteFile(targetFile, d, 0644)
+	err = ioutil.WriteFile(targetFile, d, 0644)
+	if err != nil {
+		fmt.Printf("Failed to write file [%v], error:[%v", targetFile, err)
+	}
 }
