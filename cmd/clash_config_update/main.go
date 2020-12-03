@@ -75,6 +75,7 @@ func main() {
 	c.Rules = append([]string{"DOMAIN-SUFFIX,alipay.net,DIRECT"}, c.Rules...)
 	c.Rules = append([]string{"DOMAIN-SUFFIX,alibaba-inc.com,DIRECT"}, c.Rules...)
 	c.Rules = append([]string{"DOMAIN-SUFFIX,antfin.com,DIRECT"}, c.Rules...)
+	c.Rules = append([]string{"DOMAIN-SUFFIX,alipay-inc.com,DIRECT"}, c.Rules...)
 	c.Rules = append([]string{"DOMAIN-SUFFIX,atatech.org,DIRECT"}, c.Rules...)
 	d, _ := yaml.Marshal(&c)
 	// fmt.Println(string(d))

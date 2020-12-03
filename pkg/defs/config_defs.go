@@ -17,6 +17,8 @@ type Proxy struct {
 	Name      string   `yaml:"name" json:"name"`
 	Type      string   `yaml:"type" json:"type"`
 	Server    string   `yaml:"server" json:"server"`
+	Password  string   `yaml:"password" json:"password"` // support trojan
+	Sni       string   `yaml:"sni" json:"sni"`			 // support trojan
 	Port      string   `yaml:"port" json:"port"`
 	Uuid      string   `yaml:"uuid" json:"uuid"`
 	AlterId   string   `yaml:"alterId" json:"alterId"`
