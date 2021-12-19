@@ -2,16 +2,19 @@ package main
 
 import (
 	"fmt"
+	"github.com/RayneHwang/clash-config/pkg/defs"
 	"io/ioutil"
 	"log"
 	"math/rand"
 	"os"
 	"time"
 
-	"clash-config/pkg/defs"
-
 	"gopkg.in/yaml.v2"
 )
+
+func RemoveIndex(s []defs.ProxyGroup, index int) []defs.ProxyGroup {
+	return append(s[:index], s[index+1:]...)
+}
 
 func main() {
 	if len(os.Args) < 2 {
@@ -39,8 +42,18 @@ func main() {
 
 	rand.Seed(time.Now().UnixNano())
 
+	var afterRemove []defs.ProxyGroup
 	for idx, _ := range c.ProxyGroups {
-		if c.ProxyGroups[idx].Name == "PROXY" {
+		if c.ProxyGroups[idx].Name != "其他站点" {
+			afterRemove = append(afterRemove, c.ProxyGroups[idx])
+		}
+	}
+
+	c.ProxyGroups = afterRemove
+
+	for idx, _ := range c.ProxyGroups {
+
+		if c.ProxyGroups[idx].Name == "PROXY" || c.ProxyGroups[idx].Name == "NF油管" {
 			c.ProxyGroups[idx].Type = "url-test"
 			c.ProxyGroups[idx].Url = "http://www.gstatic.com/generate_204"
 			c.ProxyGroups[idx].Interval = 180
@@ -51,6 +64,11 @@ func main() {
 		}
 	}
 
+	for idx := range c.Rules {
+		if c.Rules[idx] == "MATCH,,其他站点" {
+			c.Rules[idx] = "MATCH,,PROXY"
+		}
+	}
 	d, _ := yaml.Marshal(&c)
 	err = ioutil.WriteFile(targetFile, d, 0644)
 	if err != nil {

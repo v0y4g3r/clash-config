@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"clash-config/pkg/defs"
+	"github.com/RayneHwang/clash-config/pkg/defs"
 
 	"gopkg.in/yaml.v2"
 )
